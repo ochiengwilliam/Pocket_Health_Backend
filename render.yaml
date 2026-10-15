@@ -1,12 +1,68 @@
+##services:
+##  - type: web
+##    name: pocket-health-api
+##    runtime: docker
+##    plan: free
+##
+##    healthCheckPath: /api/v1/actuator/health
+##
+##    envVars:
+##      - key: DATABASE_URL
+##        fromDatabase:
+##          name: pocket-health-db
+##          property: connectionString
+##
+##      - key: DB_USERNAME
+##        fromDatabase:
+##          name: pocket-health-db
+##          property: user
+##
+##      - key: DB_PASSWORD
+##        fromDatabase:
+##          name: pocket-health-db
+##          property: password
+##
+##      - key: JWT_SECRET
+##        generateValue: true
+##
+##      - key: JWT_EXPIRATION
+##        value: "604800000"
+##
+##      - key: GROQ_API_KEY
+##        sync: false
+##
+##      - key: GROQ_MODEL
+##        value: "openai/gpt-oss-20b"
+##
+##      - key: GROQ_API_URL
+##        value: "https://api.groq.com/openai/v1/chat/completions"
+##
+##databases:
+##  - name: pocket-health-db
+##    plan: free
+##    databaseName: pocket_health
+##    user: pocket_health_use
+#
+#
 #services:
+#
+#  # =======================================================
+#  # POCKET HEALTH API
+#  # =======================================================
 #  - type: web
 #    name: pocket-health-api
 #    runtime: docker
 #    plan: free
 #
+#    dockerfilePath: ./Dockerfile
+#
 #    healthCheckPath: /api/v1/actuator/health
 #
 #    envVars:
+#
+#      # ---------------------------------------------------
+#      # PostgreSQL
+#      # ---------------------------------------------------
 #      - key: DATABASE_URL
 #        fromDatabase:
 #          name: pocket-health-db
@@ -22,12 +78,18 @@
 #          name: pocket-health-db
 #          property: password
 #
+#      # ---------------------------------------------------
+#      # JWT
+#      # ---------------------------------------------------
 #      - key: JWT_SECRET
 #        generateValue: true
 #
 #      - key: JWT_EXPIRATION
 #        value: "604800000"
 #
+#      # ---------------------------------------------------
+#      # Groq
+#      # ---------------------------------------------------
 #      - key: GROQ_API_KEY
 #        sync: false
 #
@@ -37,18 +99,19 @@
 #      - key: GROQ_API_URL
 #        value: "https://api.groq.com/openai/v1/chat/completions"
 #
+#
+## =========================================================
+## POSTGRESQL DATABASE
+## =========================================================
 #databases:
+#
 #  - name: pocket-health-db
-#    plan: free
 #    databaseName: pocket_health
-#    user: pocket_health_use
-
+#    user: pocket_health_user
+#    plan: free
 
 services:
 
-  # =======================================================
-  # POCKET HEALTH API
-  # =======================================================
   - type: web
     name: pocket-health-api
     runtime: docker
@@ -60,10 +123,8 @@ services:
 
     envVars:
 
-      # ---------------------------------------------------
       # PostgreSQL
-      # ---------------------------------------------------
-      - key: DATABASE_URL
+      - key: DB_URL
         fromDatabase:
           name: pocket-health-db
           property: connectionString
@@ -78,18 +139,14 @@ services:
           name: pocket-health-db
           property: password
 
-      # ---------------------------------------------------
       # JWT
-      # ---------------------------------------------------
       - key: JWT_SECRET
         generateValue: true
 
       - key: JWT_EXPIRATION
         value: "604800000"
 
-      # ---------------------------------------------------
       # Groq
-      # ---------------------------------------------------
       - key: GROQ_API_KEY
         sync: false
 
@@ -100,9 +157,6 @@ services:
         value: "https://api.groq.com/openai/v1/chat/completions"
 
 
-# =========================================================
-# POSTGRESQL DATABASE
-# =========================================================
 databases:
 
   - name: pocket-health-db
