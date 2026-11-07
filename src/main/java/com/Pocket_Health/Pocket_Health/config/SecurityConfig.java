@@ -84,6 +84,7 @@ public class SecurityConfig {
         // Production frontend and local development.
         config.setAllowedOrigins(List.of(
                 "https://pocket-health-frontend.vercel.app",
+                "https://pocket-health-ek04romjv-ochiengwilliam.vercel.app",
                 "https://pocket-health-eta.vercel.app",
                 "http://localhost:5173",
                 "http://localhost:5174"
